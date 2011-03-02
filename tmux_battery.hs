@@ -30,6 +30,6 @@ main = readProcess "acpi" [] "" >>=
         "(bat+: " ++ show p ++ "%, " ++ show t1 ++ ":" ++ show t2 ++ ") "
     strResult (Done _ (BatDischarging p t1 t2 t3)) =
         "(bat-: " ++ show p ++ "%, " ++ show t1 ++ ":" ++ show t2 ++ ") "
-    strResult (Done _ (BatFull n)) = "(bat: full)"
+    strResult (Done _ (BatFull n)) = "(bat: full) "
     strResult _ = ""
 
