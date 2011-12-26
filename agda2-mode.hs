@@ -192,8 +192,8 @@ interactionParser = bracket $
     cmdContext <|> cmdInfer <|> cmdGoalType <|>
     cmdGoalTypeContext <|> cmdGoalTypeContextInfer <|>
     cmdShowModuleContents <|> cmdShowModuleContentsToplevel <|>
-    cmdMakeCase <|> cmdCompute <|> cmdInferToplevel <|> cmdComputeToplevel <|>
-    cmdWriteHighlightingInfo
+    cmdMakeCase <|> cmdSolveAll <|> cmdCompute <|>
+    cmdInferToplevel <|> cmdComputeToplevel <|> cmdWriteHighlightingInfo
 
 ioTcmParser :: Parser (IO ())
 ioTcmParser =
