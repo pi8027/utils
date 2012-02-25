@@ -1,22 +1,17 @@
 #!/bin/zsh
 
-if [ -z $TMUX ]; then
-    exit 1
-fi
-
 CMDNAME=`basename $0`
 
 tvim_path=""
 split_opts=""
 
-while getopts dhvb: OPT
+while getopts dhvPp:l:t:b: OPT
 do
     case $OPT in
-        "d" ) split_opts="$split_opts -d";;
-        "h" ) split_opts="$split_opts -h";;
-        "v" ) split_opts="$split_opts -v";;
+        "d" | "h" | "v" | "P" ) split_opts="$split_opts -$OPT";;
+        "p" | "l" | "t" ) split_opts="$split_opts -$OPT $OPTARG";;
         "b" ) tvim_path=$OPTARG;;
-          * ) echo "Usage: $CMDNAME [-dhv] [vim-arguments]" 1>&2
+          * ) echo "Usage: $CMDNAME [-dhvP] [-p percentage|-l size] [-t target-pane] [vim-arguments]" 1>&2
               exit 1;;
     esac
 done
@@ -25,8 +20,10 @@ shift `expr $OPTIND - 1`
 
 vim_args=$@
 
-if [ -z $tvim_path ]; then
-    tmux split-window $split_opts "tvim -b $PWD $vim_args"
+if [ -z $TMUX ]; then
+    vim $vim_args
+elif [ -z $tvim_path ]; then
+    tmux split-window `echo -n $split_opts` "tvim -b $PWD $vim_args"
 else
     cd $tvim_path
     vim $vim_args
