@@ -20,6 +20,10 @@ shift `expr $OPTIND - 1`
 
 spawn_command=$@
 
+if [ -z $spawn_command ]; then
+    spawn_command=$SHELL
+fi
+
 if [ -z $TMUX ]; then
     `echo -n $spawn_command`
 elif [ -z $current_dir ]; then
