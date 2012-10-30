@@ -1,3 +1,0 @@
-#!/bin/zsh
-
-pstree $@ $(tmux list-panes -F "#{pane_active} #{pane_pid}" | sed "/^0 /d ; s/^[^ ]* //g")

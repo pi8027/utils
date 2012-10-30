@@ -1,8 +1,0 @@
-#!/bin/zsh
-
-case `uname` in
-Linux) xclip -i -selection clipboard;;
-Darwin) pbcopy;;
-*) echo "clipboard not found" >&2
-   exit -1;;
-esac
