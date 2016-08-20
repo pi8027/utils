@@ -1,0 +1,35 @@
+#!/bin/zsh
+
+HIRADIR=/usr/share/fonts/hiragino
+GSDIR=/usr/share/ghostscript/9.19/Resource
+
+pushd $GSDIR
+
+for f in $(ls /usr/share/fonts/hiragino | sed 's/\.otf$//')
+do
+    ln -s /usr/share/fonts/hiragino/$f.otf CIDFont/$f
+done
+
+for font in \
+  HiraKakuPro-W3 HiraKakuPro-W6 HiraKakuProN-W3 HiraKakuProN-W6 \
+  HiraKakuStd-W8 HiraKakuStdN-W8 \
+  HiraMaruPro-W4 HiraMaruProN-W4 HiraMinPro-W3 HiraMinPro-W6 \
+  HiraMinProN-W3 HiraMinProN-W6
+do
+
+for enc in \
+  UniJIS-UTF8-H UniJIS-UTF8-V \
+  UniJIS-UTF16-H UniJIS-UTF16-V \
+  UniJIS-UTF32-H UniJIS-UTF32-V
+do
+ 
+cat > Font/${font}-${enc} <<EOT
+/${font}-${enc} /${enc} /CMap findresource
+[/${font} /CIDFont findresource] composefont pop
+EOT
+
+done
+
+done
+
+popd
